@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "bank-of-dad"
+version = "0.1.0"
+description = "A completely overengineered way to get my kids to save money"
+authors = ["Ryan Schuetzler <ryan@schuetzler.net>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^4.0"
+django-ninja = "^0.16.1"
+django-tailwind = "^3.0.1"
+django-extensions = "^3.1.5"
+django-environ = "^0.8.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+black = "^21.12b0"
+flake8 = "^4.0.1"
+pytest-django = "^4.5.2"
+pre-commit = "^2.16.0"
+django-debug-toolbar = "^3.2.4"
+isort = "^5.10.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
