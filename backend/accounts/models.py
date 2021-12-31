@@ -1,3 +1,5 @@
+import math
+
 from django.contrib.auth import get_user_model
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
@@ -25,7 +27,15 @@ class Account(TimeStampedModel):
         if not self.interest_scheme:
             return 0
         else:
+            return self.interest_scheme.calculate_interest(self.balance)
+
+    def calculate_interest(self, balance):
+        for breakpoint in self.interest_scheme.breakpoints.all():
             pass
+    
+    def calculate_days_interest(balance, rate, days: int):
+        daily_rate = rate / 365
+        return balance * math.exp(daily_rate * days) - balance
 
 
 class Transaction(TimeStampedModel):
@@ -84,6 +94,9 @@ class InterestScheme(models.Model):
 
 
 class InterestBreakpoint(models.Model):
-    interest_scheme = models.ForeignKey(InterestScheme, on_delete=models.CASCADE)
+    interest_scheme = models.ForeignKey(InterestScheme, on_delete=models.CASCADE, related_name="breakpoints")
     balance_breakpoint = models.DecimalField(max_digits=10, decimal_places=2)
-    interest_rate = models.DecimalField(max_digits=10, decimal_places=2)
+    interest_rate = models.DecimalField(max_digits=10, decimal_places=4)
+
+    class Meta:
+        ordering = ["balance_breakpoint"]
