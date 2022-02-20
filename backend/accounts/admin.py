@@ -2,9 +2,22 @@ from django.contrib import admin
 
 from .models import Account, InterestBreakpoint, InterestScheme, Transaction
 
+
 # Register your models here.
-admin.site.register(Account)
+@admin.register(Account)
+class AccountAdmin(admin.ModelAdmin):
+    list_display = ("owner", "balance", "accrued_interest", "next_month_interest")
+
+
 admin.site.register(Transaction)
 
 admin.site.register(InterestScheme)
-admin.site.register(InterestBreakpoint)
+
+
+@admin.register(InterestBreakpoint)
+class BreakpointAdmin(admin.ModelAdmin):
+    list_display = (
+        "balance_breakpoint",
+        "annual_interest_rate",
+        "monthly_interest_rate",
+    )

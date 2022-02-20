@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 volumes:
   dadbank_postgres: {}
@@ -27,7 +27,7 @@ services:
       - POSTGRES_DB=dadbank_django
     ports:
       - "5432:5432"
-    restart: always
+    # restart: always
     
   # frontend:
   #   build: ./frontend
